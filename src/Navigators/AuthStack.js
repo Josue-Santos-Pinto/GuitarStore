@@ -10,8 +10,8 @@ export default () => {
 
     return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Preload" component={Preload} />
-            <Stack.Screen name="Login" component={Login} />
+            {/*<Stack.Screen name="Preload" component={Preload} />*/}
+            {/*<Stack.Screen name="Login" component={Login} />*/}
             <Stack.Screen name="Register" component={Register} 
             options={{
                 headerShown: true,
