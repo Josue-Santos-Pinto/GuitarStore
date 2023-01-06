@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from '../Screens/Login'
 import Preload from "../Screens/Preload";
 import Register from '../Screens/Register'
-import Home from '../Screens/Home'
+import MainDrawer from "./MainDrawer";
 
 export default () => {
 
@@ -24,7 +24,7 @@ export default () => {
                     }
                 }}
                 />
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="MainDrawer" component={MainDrawer} />
         </Stack.Navigator>
     )
 }

@@ -15,7 +15,7 @@ export default () => {
         auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
-                navigation.reset({index:1,routes:[{name:'Home'}]});
+                navigation.reset({index:1,routes:[{name:'MainDrawer'}]});
             })
             .catch(error => {
                 const errorCode = error.code;

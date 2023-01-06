@@ -34,7 +34,7 @@ export default () => {
      
   } else {
     setTimeout(()=>{
-        navigation.reset({index:1,routes:[{name:'Home'}]})
+        navigation.reset({index:1,routes:[{name:'MainDrawer'}]})
     },2000)
     
   }
