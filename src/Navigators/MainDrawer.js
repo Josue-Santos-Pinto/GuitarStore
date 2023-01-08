@@ -16,7 +16,7 @@ export default () => {
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="MyProducts" component={MyProducts} />
       <Drawer.Screen name="Favorites" component={Favorites} />
-      <Drawer.Screen name="MyAccount" component={MyAccount} />
+      <Drawer.Screen name="MyAccount" component={MyAccount} options={{title:'Minha Conta'}} />
     </Drawer.Navigator>
   );
 }
