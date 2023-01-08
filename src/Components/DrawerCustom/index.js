@@ -11,9 +11,9 @@ export default (props) => {
 
     const menus = [
         {title: 'Inicio', icon: 'home', screen: 'Home' },
-        {title: 'Minhas Compras', icon: 'th-large', screen: 'MyAddStack' },
-        {title: 'Favoritos', icon: 'heart', screen: 'MyAccountScreen' },
-        {title: 'Minha Conta', icon: 'user', screen: 'Dashboard' }
+        {title: 'Minhas Compras', icon: 'th-large', screen: 'MyProducts' },
+        {title: 'Favoritos', icon: 'heart', screen: 'Favorites' },
+        {title: 'Minha Conta', icon: 'user', screen: 'MyAccount' }
 
     ]
     const handleSignout = () => {
@@ -27,7 +27,7 @@ export default (props) => {
         <View className=" flex-1 flex-column py-4 justify-between">
             <View>
                 {menus.map((item,index)=>(
-                    <TouchableOpacity key={index} className="flex-row my-2.5  items-center ">
+                    <TouchableOpacity key={index} className="flex-row my-2.5  items-center " onPress={()=>navigation.navigate(item.screen)}>
                         <View className={`w-2 h-10 rounded-r mr-4 ${props.state.routes[props.state.index].name === item.screen ? 'bg-violet-700' : 'bg-transparent'}`}></View>
                         <Icon name={item.icon} size={24} color={`${props.state.routes[props.state.index].name === item.screen ? 'rgb(109, 40, 217)' : '#CCC'}`} />
                             <Text className={` ml-4 text-base ${props.state.routes[props.state.index].name === item.screen ? 'text-violet-800' : 'text-slate-400'}`}>{item.title}</Text>
