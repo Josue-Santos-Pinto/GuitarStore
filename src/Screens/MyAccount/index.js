@@ -4,6 +4,8 @@ import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "reac
 import cepApi from "../../services/cepApi";
 import { TextInputMask } from "react-native-masked-text";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useSelector } from "react-redux";
+import database from '@react-native-firebase/database';
 
 export default () => {
 
@@ -28,8 +30,9 @@ export default () => {
     const [validCep,setValidCep] = useState('')
 
     
+    const user = useSelector(state=>state.user)
     
-    
+    const email = user.email
 
     useEffect(()=>{
         const getAddress = async () => {
@@ -48,6 +51,22 @@ export default () => {
         }
         getAddress()
     },[cep])
+
+    const submitData = () => {
+        
+            const newReference = database().ref('/usuarios').push();
+
+            console.log('Auto generated key: ', newReference.key);
+
+            newReference
+            .set({
+                name: 'josue',
+            })
+            .then(() => console.log('Data updated.'));
+                    
+
+
+    }
 
 
     return (
@@ -79,8 +98,8 @@ export default () => {
                 <TextInput 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     maxLength={25}
-                    value={name}
-                    onChangeText={(e)=>setName(e)}
+                    value={email}
+                    editable={false}
                 />
             </View>
 
@@ -165,7 +184,7 @@ export default () => {
         </View>
 
         <View className="w-full items-center">
-            <TouchableOpacity onPress={null}
+            <TouchableOpacity onPress={submitData}
                 className="bg-purple-700 w-48 h-12 items-center justify-center mt-8 rounded-md mb-12">
                     <Text className="text-white text-base">Salvar</Text>
             </TouchableOpacity>
