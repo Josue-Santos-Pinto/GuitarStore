@@ -4,12 +4,15 @@ import auth from '@react-native-firebase/auth';
 import { useNavigation } from "@react-navigation/native";
 import database from '@react-native-firebase/database';
 import ListItem from "../../Components/ListItem";
+import { useSelector } from "react-redux";
 
 
 
 export default () => {
     const navigation = useNavigation()
     const [item,setItem] = useState([])
+    const [loading,setLoading] = useState(true)
+    const user = useSelector(state=>state.user)
 
     useEffect(()=>{
         database()
@@ -19,18 +22,17 @@ export default () => {
         });
     },[])
    
-    useEffect(()=>{
-        console.log(item)
-    },[item])
+    
+    
 
     return (
-        <View className="flex-1 items-center justify-center ">
-            <FlatList 
-                className="flex-1"
-                data={item}
-                renderItem={({item,index})=><ListItem data={item}/>}
-                keyExtractor={(item)=>item.name}
-            />
+        <View className="flex-1">        
+                <FlatList
+                    data={item}
+                    className="flex-1 w-full overflow-hidden"
+                    renderItem={({item,index})=><ListItem data={item}/>}
+                    keyExtractor={(item)=>item.id}
+              /> 
         </View>
     )
 }

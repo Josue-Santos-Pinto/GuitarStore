@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import MainDrawer from '../../Navigators/MainDrawer';
+import { useDispatch } from 'react-redux';
+import { setEmail,setId } from '../../redux/reducers/userReducer';
+import { useNavigation } from '@react-navigation/native';
+import Login from '../Login'
 
 function App() {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+
+  const dispatch = useDispatch()
+  const navigation = useNavigation()
+
 
   // Handle user state changes
   function onAuthStateChanged(user) {
@@ -19,10 +27,17 @@ function App() {
     return subscriber; // unsubscribe on unmount
   }, []);
 
+  useEffect(()=>{
+    if(user){
+      dispatch(setEmail(user.email))
+      dispatch(setId(user.uid))
+    }
+  },[user])
+
   if (initializing) return null;
 
   if (!user) {
-    return navigation.reset({index:1,routes:[{name:'Login'}]})
+    return <Login />
   }
 
   return (

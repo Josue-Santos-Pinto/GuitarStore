@@ -1,11 +1,16 @@
-import React from "react";
-import { View,Text } from "react-native";
+import React, { useEffect } from "react";
+import { View,Text, FlatList } from "react-native";
+import { useSelector } from "react-redux";
+import ListItem from "../../Components/ListItem";
 
 
 export default () => {
+
+    
+
     return (
         <View>
-            <Text>Minha Conta</Text>
+            <Text>Tela de Favoritos</Text>
         </View>
     )
 }

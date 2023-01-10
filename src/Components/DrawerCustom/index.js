@@ -3,11 +3,14 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import auth from '@react-native-firebase/auth';
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useDispatch } from "react-redux";
+import { setId,setEmail } from "../../redux/reducers/userReducer";
 
 
 export default (props) => {
 
     const navigation = useNavigation()
+    const dispatch = useDispatch()
 
     const menus = [
         {title: 'Inicio', icon: 'home', screen: 'Home' },
@@ -19,8 +22,11 @@ export default (props) => {
     const handleSignout = () => {
         auth()
         .signOut()
-        .then(() => navigation.reset({index:1,routes:[{name:'Login'}]}));
+        .then(() =>    
+        navigation.reset({index:1,routes:[{name:'Login'}]}));
 
+        dispatch(setEmail(''))
+        dispatch(setId(''))
     }
 
     return (
