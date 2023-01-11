@@ -4,8 +4,9 @@ import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "reac
 import cepApi from "../../services/cepApi";
 import { TextInputMask } from "react-native-masked-text";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import database from '@react-native-firebase/database';
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default () => {
 
@@ -13,7 +14,7 @@ export default () => {
 
      //dist = district = Bairro
 
-     const [name,setName] = useState('')
+    const [name,setName] = useState('')
 
     const [tel,setTel] = useState('')
     const [cpf,setCpf] = useState('')
@@ -25,12 +26,13 @@ export default () => {
     const [unmaskedCpf,setUnmaskedCpf] = useState('')
     const [unmaskedCep,setUnmaskedCep] = useState('')
     const [unmaskedTel,setUnmaskedTel] = useState('')
-    const [validCpf,setValidCpf] = useState('')
-    const [validTel,setValidTel] = useState('')
-    const [validCep,setValidCep] = useState('')
-
     
+    
+    const [key,setKey] = useState('')
+    
+    const dispatch = useDispatch()
     const user = useSelector(state=>state.user)
+    
     
     const email = user.email
 
@@ -52,17 +54,93 @@ export default () => {
         getAddress()
     },[cep])
 
-    const submitData = () => {
+    useEffect(()=>{
+        const saveKey = async () => {
+            if(key != ''){
+                await AsyncStorage.setItem('@key',key)
+            }
+        }
+        saveKey()
+    },[key])
+
+    useEffect(()=>{
+        const getKey = async () => {
+            
+                const n = await AsyncStorage.getItem('@key')
+                setKey(n)
+            
+        }
+        getKey()
+    },[])
+    
+
+
+    useEffect(()=>{
+        if(key != ''){
+            database()
+            .ref(`users/${key}`)
+            .on('value', snapshot => {
+                setName(snapshot.val().name);
+                setTel(snapshot.val().tel);
+                setCep(snapshot.val().cep);
+                setCpf(snapshot.val().cpf);
+                setUnmaskedCpf(snapshot.val().cpf);
+                setUnmaskedTel(snapshot.val().tel);
+                setUnmaskedCep(snapshot.val().cep);
+                setUnmaskedCpf(snapshot.val().cpf);
+                setCity(snapshot.val().city);
+                setStreet(snapshot.val().street);
+                setDist(snapshot.val().dist);
+                setNum(snapshot.val().num);
+            });
+        }
         
-            const newReference = database().ref('/usuarios').push();
+    },[key])
 
-            console.log('Auto generated key: ', newReference.key);
+    useEffect(()=>{
+        console.log(key)
+    },[key])
 
+    const submitData = () => {
+
+        if(key == ''){
+            const newReference = database().ref('/users').push();
+
+            setKey(newReference.key)
+    
             newReference
             .set({
-                name: 'josue',
+                name,
+                tel: unmaskedTel,
+                cpf: unmaskedCpf,
+                cep: unmaskedCep,
+                email,
+                city,
+                street,
+                dist,
+                num
+
+            })
+            .then(() => console.log('Data created'));
+
+        } else {
+
+            database()
+            .ref(`/users/${key}`)
+            .update({
+                name,
+                tel: unmaskedTel,
+                cpf: unmaskedCpf,
+                cep: unmaskedCep,
+                email,
+                city,
+                street,
+                dist,
+                num
             })
             .then(() => console.log('Data updated.'));
+        }
+        
                     
 
 

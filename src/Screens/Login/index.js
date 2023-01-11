@@ -1,20 +1,27 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import auth from '@react-native-firebase/auth';
+import { useDispatch } from "react-redux";
+import { setEmail } from '../../redux/reducers/userReducer';
 
 export default () => {
 
     const navigation = useNavigation()
 
-    const [email,setEmail] = useState('')
+    const dispatch = useDispatch(state=>state.user)
+
+    const [emailLogin,setEmailLogin] = useState('')
     const [password,setPassword] = useState('')
 
+    
+
     const handleSignIn = () => {
-        if(email.trim().length > 6 && password.trim().length > 2){
+        if(emailLogin.trim().length > 6 && password.trim().length > 2){
         auth()
-            .signInWithEmailAndPassword(email, password)
+            .signInWithEmailAndPassword(emailLogin, password)
             .then(() => {
+                dispatch(setEmail(emailLogin))
                 navigation.reset({index:1,routes:[{name:'MainDrawer'}]});
             })
             .catch(error => {
@@ -22,7 +29,7 @@ export default () => {
                 const errorMessage = error.message;
                 alert(errorMessage)
             });
-        } else if(email.trim().length < 6){
+        } else if(emailLogin.trim().length < 6){
             alert('O Email deve ter mais de 6 caracteres')
         } else if(password.trim().length < 4){
             alert('A senha deve ter mais de 4 caracteres')
@@ -44,8 +51,8 @@ export default () => {
                     <Text className="text-white text-base">Email: </Text>
                     <TextInput 
                         className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
-                        value={email}
-                        onChangeText={(e)=>setEmail(e)}
+                        value={emailLogin}
+                        onChangeText={(e)=>setEmailLogin(e)}
                     />
                 </View>
 

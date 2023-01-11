@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import MainDrawer from '../../Navigators/MainDrawer';
 import { useDispatch } from 'react-redux';
-import { setEmail,setId } from '../../redux/reducers/userReducer';
+import { setEmail } from '../../redux/reducers/userReducer';
 import { useNavigation } from '@react-navigation/native';
 import Login from '../Login'
 
@@ -30,7 +30,6 @@ function App() {
   useEffect(()=>{
     if(user){
       dispatch(setEmail(user.email))
-      dispatch(setId(user.uid))
     }
   },[user])
 

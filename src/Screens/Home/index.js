@@ -16,7 +16,7 @@ export default () => {
 
     useEffect(()=>{
         database()
-        .ref('/produtos')
+        .ref('/products')
         .on('value', snapshot => {
             setItem(snapshot.val());
         });
