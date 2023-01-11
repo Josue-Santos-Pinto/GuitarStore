@@ -6,3 +6,4 @@ Firebase
 Reducers
 Axios
 Rest
+Image-Picker
