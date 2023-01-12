@@ -14,7 +14,7 @@ export default (props) => {
 
     const menus = [
         {title: 'Inicio', icon: 'home', screen: 'Home' },
-        {title: 'Minhas Compras', icon: 'th-large', screen: 'MyProducts' },
+        {title: 'Minhas Compras', icon: 'shopping-bag', screen: 'MyProducts' },
         {title: 'Favoritos', icon: 'heart', screen: 'Favorites' },
         {title: 'Minha Conta', icon: 'user', screen: 'MyAccount' }
 

@@ -44,7 +44,7 @@ const initialState = []
               item.id === payload
                 ? {
                     ...item,
-                    quantity: item.quantity - 1,
+                    quantity: item.quantity >= 2 ? item.quantity - 1: item.quantity,
                   }
                 : item,
             );

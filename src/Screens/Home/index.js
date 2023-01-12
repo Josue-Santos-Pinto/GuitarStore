@@ -22,7 +22,8 @@ export default () => {
             navigation.setOptions({
                 headerTitle: '',
                 headerRight: () => (
-                    <TouchableOpacity className="m-4 w-10 h-10 rounded-full items-center justify-center">
+                    <TouchableOpacity onPress={()=>navigation.navigate('Cart')}
+                    className="m-4 w-10 h-10 rounded-full items-center justify-center">
                             <Icon name='shopping-cart' size={24} color='#6e6d75' />
                             <View className='w-4 h-4 rounded-full absolute right-px items-center justify-center ' style={{top: -8}}>
                                 <Text className='text-black bold'>{badget}</Text>
