@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Image, Text,TouchableOpacity,View } from "react-native";
 import  Icon  from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/reducers/cartReducer";
 
 
 export default ({data}) => {
@@ -11,6 +12,7 @@ export default ({data}) => {
 
     const [favorite,setFavorite] = useState(false)
 
+    const cart = useSelector(state=>state.cart)
 
     
 
@@ -33,7 +35,8 @@ export default ({data}) => {
                 <Text className="text-black">{data.desc}</Text>
                 <Text className="text-green-400 text-xl my-2">R$ {parseFloat(data.price).toFixed(2)}</Text>
 
-                <TouchableOpacity className="bg-purple-700 w-48 h-12 items-center justify-center  rounded-md">
+                <TouchableOpacity onPress={()=>dispatch(addToCart(data))}
+                className="bg-purple-700 w-48 h-12 items-center justify-center  rounded-md">
                     <Text>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
             </View>
