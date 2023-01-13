@@ -22,13 +22,22 @@ export default () => {
             navigation.setOptions({
                 headerTitle: '',
                 headerRight: () => (
-                    <TouchableOpacity onPress={()=>navigation.navigate('Cart')}
-                    className="m-4 w-10 h-10 rounded-full items-center justify-center">
-                            <Icon name='shopping-cart' size={24} color='#6e6d75' />
-                            <View className='w-4 h-4 rounded-full absolute right-px items-center justify-center ' style={{top: -8}}>
-                                <Text className='text-black bold'>{badget}</Text>
-                            </View>
-                    </TouchableOpacity>
+                    <View className='flex-row'>
+                        <TouchableOpacity onPress={()=>navigation.navigate('Search')}
+                        className="m-4 w-10 h-10 rounded-full items-center justify-center">
+                                <Icon name='search' size={24} color='#6e6d75' />
+                                
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={()=>navigation.navigate('Cart')}
+                        className="m-4 w-10 h-10 rounded-full items-center justify-center">
+                                <Icon name='shopping-cart' size={24} color='#6e6d75' />
+                                <View className='w-4 h-4 rounded-full absolute right-px items-center justify-center ' style={{top: -8}}>
+                                    <Text className='text-black bold'>{badget}</Text>
+                                </View>
+                        </TouchableOpacity>
+                    </View>
+                    
                 )
             })
         
