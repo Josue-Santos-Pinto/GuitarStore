@@ -3,7 +3,7 @@ import { Image, Text,TouchableOpacity,View } from "react-native";
 import  Icon  from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/reducers/cartReducer";
-
+import { addToFav } from "../../redux/reducers/favReducer";
 
 export default ({data}) => {
 
@@ -13,6 +13,17 @@ export default ({data}) => {
     const [favorite,setFavorite] = useState(false)
 
     const cart = useSelector(state=>state.cart)
+    const fav = useSelector(state=>state.fav)
+
+    useEffect(()=>{
+        if(favorite == true){
+            dispatch(addToFav(data))
+        }
+    },[favorite])
+
+    useEffect(()=>{
+        console.log(fav)
+    },[favorite])
 
     
 
