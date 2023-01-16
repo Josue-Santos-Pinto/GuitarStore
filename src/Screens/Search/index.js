@@ -46,7 +46,7 @@ export default () => {
                                     </TouchableOpacity>
                                 }
                     </View>
-                    <TouchableOpacity className='h-full w-12 justify-center items-center border-2 rounded'>
+                    <TouchableOpacity className='h-full w-12 justify-center items-center border-2 rounded ml-2'>
                         <Icon name='filter' size={24} color='#000' />
                     </TouchableOpacity>
                             

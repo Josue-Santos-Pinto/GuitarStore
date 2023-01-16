@@ -12,7 +12,7 @@ import { createSlice } from "@reduxjs/toolkit";
     },
     reducers: {
         
-        setKey: (state,action) => {
+        setGlobalKey: (state,action) => {
             state.key = action.payload
         },
         setName: (state,action) => {
@@ -27,5 +27,5 @@ import { createSlice } from "@reduxjs/toolkit";
     }
  })
 
- export const {setName,setEmail,setKey} = slice.actions
+ export const {setName,setEmail,setGlobalKey,setImage} = slice.actions
  export default slice.reducer

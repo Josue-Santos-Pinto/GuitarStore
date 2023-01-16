@@ -16,10 +16,10 @@ export default () => {
   return (
     <Drawer.Navigator drawerContent={(props)=><DrawerCustom {...props}/>}>
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Cart" component={Cart} />
-      <Drawer.Screen name="Search" component={Search} />
-      <Drawer.Screen name="MyProducts" component={MyProducts} />
-      <Drawer.Screen name="Favorites" component={Favorites} />
+      <Drawer.Screen name="Cart" component={Cart} options={{title:'Carrinho'}}/>
+      <Drawer.Screen name="Search" component={Search} options={{title:''}}/>
+      <Drawer.Screen name="MyProducts" component={MyProducts} options={{title:'Minhas Compras'}}/>
+      <Drawer.Screen name="Favorites" component={Favorites} options={{title:'Favoritos'}}/>
       <Drawer.Screen name="MyAccount" component={MyAccount} options={{title:'Minha Conta'}} />
     </Drawer.Navigator>
   );

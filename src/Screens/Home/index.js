@@ -57,7 +57,7 @@ export default () => {
     
 
     return (
-        <View className="flex-1">        
+        <View className="flex-1 bg-slate-800 ">        
                 <FlatList
                     data={item}
                     className="flex-1 w-full overflow-hidden"

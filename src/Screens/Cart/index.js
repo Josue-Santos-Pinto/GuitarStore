@@ -19,13 +19,13 @@ export default () => {
     
 
     return (
-        <View className='flex-1'>
+        <View className='flex-1 bg-slate-800'>
             <ScrollView>
 
                 {cart.length == 0 &&
                     <View className='flex-1 h-96 w-full justify-center items-center'>
                         <View className='w-40 h-40 justify-center items-center'>
-                            <Text className='text-black'>Carrinho Vazio</Text>
+                            <Text className='text-white'>Carrinho Vazio</Text>
                         </View>
                     </View>
                 }

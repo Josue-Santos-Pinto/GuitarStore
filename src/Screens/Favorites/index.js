@@ -19,13 +19,13 @@ export default () => {
     
 
     return (
-        <View className='flex-1'>
+        <View className='flex-1 bg-slate-800'>
             <ScrollView>
 
                 {fav.length == 0 &&
                     <View className='flex-1 h-96 w-full justify-center items-center'>
                         <View className='w-40 h-40 justify-center items-center'>
-                            <Text className='text-black'>Sem Favoritos</Text>
+                            <Text className='text-white'>Sem Favoritos</Text>
                         </View>
                     </View>
                 }
@@ -51,7 +51,7 @@ export default () => {
 
                         <Text className="text-black bold text-2xl">{`${item.name = item.name.length > 12 ? `${item.name.slice(0,22)}...` : item.name}`}</Text>
 
-                        
+                        <Text className="text-black ">{item.desc}</Text>
                     </View>
 
                 </View>

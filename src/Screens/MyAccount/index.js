@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import database from '@react-native-firebase/database';
 import AsyncStorage from "@react-native-community/async-storage";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {setImage,setGlobalKey} from '../../redux/reducers/userReducer'
 
 
 export default () => {
@@ -67,6 +68,7 @@ export default () => {
         const saveKey = async () => {
             if(key != ''){
                 await AsyncStorage.setItem('@key',key)
+                dispatch(setGlobalKey(key))
             }
         }
         saveKey()
@@ -205,15 +207,15 @@ export default () => {
             })
             .then(() => alert('Alterações salvas'),navigation.navigate('Home'));
         }
-        
-                    
-
+        if(img){
+            dispatch(setImage(img))
+        }
 
     }
 
 
     return (
-        <View >
+        <View className='bg-slate-800'>
             <ScrollView>
 
                 <View className="w-full h-36 items-center justify-center my-6">
@@ -235,7 +237,7 @@ export default () => {
                 </View>
 
             <View className="w-full h-28 items-start px-6">
-                <Text className="text-black text-base">Nome Completo: </Text>
+                <Text className="text-white text-base">Nome Completo: </Text>
                 <TextInput 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     maxLength={25}
@@ -245,7 +247,7 @@ export default () => {
             </View>
 
             <View className="w-full h-28 items-start px-6">
-                <Text className="text-black text-base">Email: </Text>
+                <Text className="text-white text-base">Email: </Text>
                 <TextInput 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-400"
                     maxLength={25}
@@ -255,7 +257,7 @@ export default () => {
             </View>
 
             <View className="w-full h-28 items-start px-6">
-                <Text className="text-black text-base">Telefone: </Text>
+                <Text className="text-white text-base">Telefone: </Text>
                 <TextInputMask 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     value={tel}
@@ -271,7 +273,7 @@ export default () => {
             </View>
 
             <View className="w-full h-28 items-start px-6">
-                <Text className="text-black text-base">CPF: </Text>
+                <Text className="text-white text-base">CPF: </Text>
                 <TextInputMask 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     value={cpf}
@@ -282,7 +284,7 @@ export default () => {
             </View>
 
             <View className="w-full h-28 items-start px-6">
-                <Text className="text-black text-base">CEP: </Text>
+                <Text className="text-white text-base">CEP: </Text>
                 <TextInputMask 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     value={cep}
@@ -294,7 +296,7 @@ export default () => {
             </View>
 
             <View className="w-full h-28 items-start px-6">
-                <Text className="text-black text-base">Cidade: </Text>
+                <Text className="text-white text-base">Cidade: </Text>
                 <TextInput 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     value={city}
@@ -303,7 +305,7 @@ export default () => {
             </View>
 
             <View className="w-full h-28 items-start px-6">
-                <Text className="text-black text-base">Rua: </Text>
+                <Text className="text-white text-base">Rua: </Text>
                 <TextInput 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     value={street}
@@ -316,7 +318,7 @@ export default () => {
         <View className="flex-row"> 
 
             <View className="w-64 h-28 items-start px-6">
-                <Text className="text-black text-base">Bairro: </Text>
+                <Text className="text-white text-base">Bairro: </Text>
                 <TextInput 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     value={dist}
@@ -325,7 +327,7 @@ export default () => {
             </View>
 
             <View className="w-28 h-28 items-start px-6">
-                <Text className="text-black text-base">Número: </Text>
+                <Text className="text-white text-base">Número: </Text>
                 <TextInput 
                     className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-900"
                     value={num}
