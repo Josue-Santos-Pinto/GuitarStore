@@ -26,14 +26,14 @@ export default () => {
                     })
                     .catch(error => {
                         if (error.code === 'auth/email-already-in-use') {
-                        alert('That email address is already in use!');
+                        alert('Esse Email ja está em uso');
                         }
     
                         if (error.code === 'auth/invalid-email') {
-                        alert('That email address is invalid!');
+                        alert('Esse Email é invalido');
                         }
     
-                        console.error(error);
+                        alert(error);
                     });
             } else {
                 alert('Preencha todos os Campos')

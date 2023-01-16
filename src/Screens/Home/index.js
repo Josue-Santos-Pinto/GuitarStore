@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import auth from '@react-native-firebase/auth';
 import { useNavigation } from "@react-navigation/native";
 import database from '@react-native-firebase/database';
 import ListItem from "../../Components/ListItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Icon  from "react-native-vector-icons/FontAwesome5";
 import Cart from "../Cart";
+import auth from '@react-native-firebase/auth'
+import { setUID } from "../../redux/reducers/userReducer";
 
 
 
@@ -16,6 +17,12 @@ export default () => {
     const [loading,setLoading] = useState(true)
     const cart = useSelector(state=>state.cart)
     const badget = useSelector(state=>state.cart.length)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        if (auth().currentUser !== null) 
+        dispatch(setUID(auth().currentUser.uid))
+    },[])
 
     useEffect(()=>{
         

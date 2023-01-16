@@ -1,32 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import auth from '@react-native-firebase/auth';
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setId,setEmail } from "../../redux/reducers/userReducer";
+import AsyncStorage from "@react-native-community/async-storage";
 
 
 export default (props) => {
 
     const navigation = useNavigation()
     const dispatch = useDispatch()
+    const user = useSelector(state=>state.user)
 
-    const menus = [
+    const [menus,setMenus] = useState([])
+
+    
+    let menu = [
         {title: 'Inicio', icon: 'home', screen: 'Home' },
-        {title: 'Minhas Compras', icon: 'shopping-bag', screen: 'MyProducts' },
         {title: 'Favoritos', icon: 'heart', screen: 'Favorites' },
-        {title: 'Minha Conta', icon: 'user', screen: 'MyAccount' }
+        {title: 'Minha Conta', icon: 'user', screen: 'MyAccount' },
 
     ]
-    const handleSignout = () => {
+
+    useEffect(()=>{
+        if(user.email === 'admin@gmail.com'){
+            let i = [...menu]
+            i.push({title: 'Adicionar produtos', icon: 'plus', screen: 'AddProducts'})
+            setMenus(i)
+        }
+        else{
+            setMenus(menu)
+        }
+    },[user])
+
+    const handleSignout = async () => {
         auth()
         .signOut()
         .then(() =>    
         navigation.reset({index:1,routes:[{name:'Login'}]}));
 
         dispatch(setEmail(''))
-        dispatch(setId(''))
+        AsyncStorage.removeItem('@key')
     }
 
     return (

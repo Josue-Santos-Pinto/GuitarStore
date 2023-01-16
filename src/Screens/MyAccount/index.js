@@ -6,9 +6,8 @@ import { TextInputMask } from "react-native-masked-text";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useDispatch, useSelector } from "react-redux";
 import database from '@react-native-firebase/database';
-import AsyncStorage from "@react-native-community/async-storage";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {setImage,setGlobalKey} from '../../redux/reducers/userReducer'
+import {setImage} from '../../redux/reducers/userReducer'
 
 
 export default () => {
@@ -41,7 +40,9 @@ export default () => {
     const user = useSelector(state=>state.user)
     
     
+    
     const email = user.email
+    const uid = user.uid
 
 
     //UseEffects
@@ -64,33 +65,17 @@ export default () => {
         getAddress()
     },[cep])
 
-    useEffect(()=>{
-        const saveKey = async () => {
-            if(key != ''){
-                await AsyncStorage.setItem('@key',key)
-                dispatch(setGlobalKey(key))
-            }
-        }
-        saveKey()
-    },[key])
-
-    useEffect(()=>{
-        const getKey = async () => {
-            
-                const n = await AsyncStorage.getItem('@key')
-                setKey(n)
-            
-        }
-        getKey()
-    },[])
+    
     
 
 
     useEffect(()=>{
-        if(key != ''){
+        if(uid != ''){
             database()
-            .ref(`users/${key}`)
+            .ref(`users/${uid}`)
             .on('value', snapshot => {
+                if(snapshot.val() != null){
+                    console.log(snapshot.val())
                 setName(snapshot.val().name);
                 setImg(snapshot.val().img)
                 setTel(snapshot.val().tel);
@@ -104,10 +89,11 @@ export default () => {
                 setStreet(snapshot.val().street);
                 setDist(snapshot.val().dist);
                 setNum(snapshot.val().num);
+                }
             });
         }
         
-    },[key])
+    },[uid])
 
     // Funções
 
@@ -166,33 +152,12 @@ export default () => {
 
     const submitData = () => {
 
-        if(key == ''){
-            const newReference = database().ref('/users').push();
-
-            setKey(newReference.key)
-    
-            newReference
-            .set({
-                name,
-                img,
-                tel: unmaskedTel,
-                cpf: unmaskedCpf,
-                cep: unmaskedCep,
-                email,
-                city,
-                street,
-                dist,
-                num
-
-            })
-            .then(() => alert('Alterações salvas'),navigation.navigate('Home'));
-
-        } else {
+       
 
             // Atualização de dados do Firebase
 
             database()
-            .ref(`/users/${key}`)
+            .ref(`/users/${uid}`)
             .update({
                 name,
                 img,
@@ -206,10 +171,8 @@ export default () => {
                 num
             })
             .then(() => alert('Alterações salvas'),navigation.navigate('Home'));
-        }
-        if(img){
-            dispatch(setImage(img))
-        }
+        
+        
 
     }
 

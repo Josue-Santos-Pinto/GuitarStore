@@ -17,7 +17,7 @@ export default () => {
     
 
     const handleSignIn = () => {
-        if(emailLogin.trim().length > 6 && password.trim().length > 2){
+        if(emailLogin.trim().length > 6 && password.trim().length > 5){
         auth()
             .signInWithEmailAndPassword(emailLogin, password)
             .then(() => {

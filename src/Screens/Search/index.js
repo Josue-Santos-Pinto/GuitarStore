@@ -31,8 +31,8 @@ export default () => {
         navigation.setOptions({
             headerTitle: '',
             headerRight: () => (
-                <View className='w-full h-12 justify-center   rounded flex-row'>
-                    <View className='w-44 h-full rounded-l bg-stone-400 flex-row'>
+                <View className='w-full h-12 rounded flex-row'>
+                    <View className='w-11/12 h-full rounded-l border-2 flex-row justify-between'>
                         <TextInput
                                     value={searchText}
                                     placeholder='Procurar Produto'
@@ -46,11 +46,7 @@ export default () => {
                                     </TouchableOpacity>
                                 }
                     </View>
-                    <TouchableOpacity className='h-full w-12 justify-center items-center border-2 rounded ml-2'>
-                        <Icon name='filter' size={24} color='#000' />
-                    </TouchableOpacity>
-                            
-                 
+                                         
                 </View>
             )
         })
@@ -74,7 +70,7 @@ export default () => {
 
 
     return (
-        <View>
+        <View className='flex-1 bg-slate-800'>
             <StatusBar backgroundColor='#121214' />
             {searchText != '' &&
                 <FlatList 
@@ -84,13 +80,15 @@ export default () => {
                 />
             }
             {searchText == '' &&
-            <View className='flex-1 justify-center items-center'>
-                <Text className='text-black'>Pesquise algum produto</Text>
+             <View className='flex-1 h-96 w-full justify-center items-center'>
+                <View className='w-40 h-40 justify-center items-center'>
+                    <Text className='text-white'>Pesquise Algo</Text>
+                </View>
             </View>
             }
             {searchText != '' && list.length == 0 &&
             <View>
-                <Text className='text-black'>Produto não encontrado</Text>
+                <Text className='text-white'>Produto não encontrado</Text>
             </View>
             }
         </View>

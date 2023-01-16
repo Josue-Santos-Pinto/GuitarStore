@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
  export const slice = createSlice({
     name:'user',
     initialState: {
-        key:'',
+        uid:'',
         name: '',
         email:'',
         img:''
@@ -12,8 +12,8 @@ import { createSlice } from "@reduxjs/toolkit";
     },
     reducers: {
         
-        setGlobalKey: (state,action) => {
-            state.key = action.payload
+        setUID: (state,action) => {
+            state.uid = action.payload
         },
         setName: (state,action) => {
             state.name = action.payload
@@ -27,5 +27,5 @@ import { createSlice } from "@reduxjs/toolkit";
     }
  })
 
- export const {setName,setEmail,setGlobalKey,setImage} = slice.actions
+ export const {setName,setEmail,setUID,setImage} = slice.actions
  export default slice.reducer
