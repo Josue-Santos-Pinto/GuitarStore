@@ -42,7 +42,7 @@ export default () => {
                         />
                     </View>
                     <View className="flex-1 p-4">
-                        <Text className="text-black bold text-2xl">{`${item.name = item.name.length > 12 ? `${item.name.slice(0,22)}...` : item.name}`}</Text>
+                        <Text className="text-black bold text-2xl">{`${ item.name.trim().length > 12 ? `${item.name.slice(0,22)}...` : item.name}`}</Text>
 
                         <Text className="text-black">Quantidade: </Text>
 
@@ -76,7 +76,7 @@ export default () => {
             ))}
 
             <View className="justify-between flex-row p-4">
-                <Text className="text-black">Valor Total: </Text>
+                <Text className="text-white">Valor Total: </Text>
                 <Text className="text-green-400 bold text-xl">R$ {totalPrice.toFixed(2)}</Text>
             </View>
             

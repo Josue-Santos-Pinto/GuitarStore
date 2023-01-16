@@ -199,6 +199,19 @@ export default () => {
 
                 </View>
 
+            {email == 'admin@gmail.com' && 
+            <View className="w-full h-28 items-start px-6">
+                <Text className="text-white text-base">Nome Completo: </Text>
+                <TextInput 
+                    className="bg-slate-200 px-2.5 w-full rounded-md mt-3 text-gray-400"
+                    maxLength={25}
+                    value={name}
+                    onChangeText={(e)=>setName(e)}
+                    editable={false}
+                />
+            </View>
+            }
+            {name != 'Admin' && 
             <View className="w-full h-28 items-start px-6">
                 <Text className="text-white text-base">Nome Completo: </Text>
                 <TextInput 
@@ -208,6 +221,7 @@ export default () => {
                     onChangeText={(e)=>setName(e)}
                 />
             </View>
+            }
 
             <View className="w-full h-28 items-start px-6">
                 <Text className="text-white text-base">Email: </Text>
