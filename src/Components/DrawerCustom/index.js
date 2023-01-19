@@ -31,7 +31,7 @@ export default (props) => {
     // useEffects
 
     useEffect(()=>{
-        if(user.email === 'admin@gmail.com'){
+        if(user.email.toLowerCase() === 'admin@gmail.com' ){
             let i = [...menu]
             i.push({title: 'Adicionar produtos', icon: 'plus', screen: 'AddProducts'})
             setMenus(i)
