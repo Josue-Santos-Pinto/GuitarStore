@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import auth from '@react-native-firebase/auth';
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useDispatch, useSelector } from "react-redux";
-import { setId,setEmail } from "../../redux/reducers/userReducer";
+import { setUID,setEmail } from "../../redux/reducers/userReducer";
 import AsyncStorage from "@react-native-community/async-storage";
 import database from '@react-native-firebase/database';
 
@@ -58,14 +58,14 @@ export default (props) => {
         navigation.reset({index:1,routes:[{name:'Login'}]}));
 
         dispatch(setEmail(''))
-        AsyncStorage.removeItem('@key')
+        dispatch(setUID(''))
     }
 
     return (
         <View className=" flex-1 flex-column py-4 justify-between">
             <View>
                 <View className='w-full h-32 justify-center items-center my-4'>
-                    <View className='w-24 h-24 rounded-full justify-center items-center'>
+                    <View className='w-24 h-24 rounded-full justify-center items-center border-2 border-black'>
                         {img == '' &&
                             <Icon name="user" size={25} color='#000' />
                         }

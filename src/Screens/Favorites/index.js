@@ -51,7 +51,7 @@ export default () => {
 
                         <Text className="text-black bold text-2xl">{`${item.name = item.name.length > 12 ? `${item.name.slice(0,22)}...` : item.name}`}</Text>
 
-                        <Text className="text-black ">{item.desc}</Text>
+                        <Text className="text-black " style={{minHeight: 80}}>{item.desc}</Text>
                     </View>
 
                 </View>

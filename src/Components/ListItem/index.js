@@ -44,7 +44,7 @@ export default ({data}) => {
                     </TouchableOpacity>
                 
                     <Text className="text-black text-lg bold">{data.name}</Text>
-                    <Text className="text-black">{data.desc}</Text>
+                    <Text className="text-black" style={{minHeight: 80}}>{data.desc}</Text>
                     <Text className="text-green-400 text-xl my-2">R$ {parseFloat(data.price).toFixed(2)}</Text>
 
                     <TouchableOpacity onPress={()=>dispatch(addToCart(data))}
