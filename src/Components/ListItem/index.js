@@ -1,58 +1,83 @@
-import React, { useEffect, useState } from "react";
-import { Image, Text,TouchableOpacity,View } from "react-native";
-import  Icon  from "react-native-vector-icons/FontAwesome";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/reducers/cartReducer";
-import { addToFav } from "../../redux/reducers/favReducer";
+import React, {useEffect, useState} from 'react';
+import {Image, Text, TouchableOpacity, View, Dimensions} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart} from '../../redux/reducers/cartReducer';
+import {addToFav} from '../../redux/reducers/favReducer';
 
-export default ({data}) => {
+export default ({data, isLast}) => {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
 
-    const dispatch = useDispatch()
-    const user = useSelector(state=>state.user)
+  const [favorite, setFavorite] = useState(false);
 
-    const [favorite,setFavorite] = useState(false)
+  const cart = useSelector(state => state.cart);
+  const fav = useSelector(state => state.fav);
+  const discount = data.price / 10;
 
-    const cart = useSelector(state=>state.cart)
-    const fav = useSelector(state=>state.fav)
+  console.log(isLast);
 
-    useEffect(()=>{
-        if(favorite == true){
-            dispatch(addToFav(data))
-        }
-    },[favorite])
+  useEffect(() => {
+    if (favorite == true) {
+      dispatch(addToFav(data));
+    }
+  }, [favorite]);
 
-    useEffect(()=>{
-        console.log(fav)
-    },[favorite])
+  useEffect(() => {
+    console.log(fav);
+  }, [favorite]);
 
-    
-
-    return (
-        <View className='w-full items-center'>
-            <View className="w-11/12 h-72 flex-row justify-around my-6  bg-white py-5 rounded ">
-                <View className="w-28 h-full justify-center items-center bg-black">
-                    <Image className="w-full h-full" source={{uri:data.img}} resizeMode='cover' />
-                </View>
-                <View className="w-44 h-44  items-center">
-                    <TouchableOpacity className=" w-5 h-5" style={{position:'absolute',top: -17,right:0}} onPress={()=>setFavorite(!favorite)}>
-                        {favorite == false &&
-                            <Icon name="heart-o" size={20} color='red' />
-                            }
-                        {favorite == true &&
-                            <Icon name="heart" size={20} color='red' />
-                            }
-                    </TouchableOpacity>
-                
-                    <Text className="text-black text-lg bold">{data.name}</Text>
-                    <Text className="text-black" style={{minHeight: 80}}>{data.desc}</Text>
-                    <Text className="text-green-400 text-xl my-2">R$ {parseFloat(data.price).toFixed(2)}</Text>
-
-                    <TouchableOpacity onPress={()=>dispatch(addToCart(data))}
-                    className="bg-purple-700 w-48 h-12 items-center justify-center  rounded-md">
-                        <Text>Adicionar ao carrinho</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+  return (
+    <TouchableOpacity
+      activeOpacity={1}
+      isLast
+      className={` ${
+        isLast
+          ? 'w-1/2 bg-slate-100  border-2 border-gray-300'
+          : ' flex-1 bg-slate-100  border-2 border-gray-300'
+      } `}>
+      <View className=" h-56 items-center justify-center">
+        <Image
+          className="w-full h-full"
+          source={{uri: data.img}}
+          resizeMode="cover"
+        />
+      </View>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        className=" w-8 h-8 justify-center items-center rounded-full  bg-slate-100"
+        style={{position: 'absolute', top: 5, right: 10}}
+        onPress={() => setFavorite(!favorite)}>
+        {favorite == false && <Icon name="heart-o" size={20} color="red" />}
+        {favorite == true && <Icon name="heart" size={20} color="red" />}
+      </TouchableOpacity>
+      <View className="w-60 h-72 ">
+        <View className="w-36 h-12  m-4 overflow-hidden">
+          <Text className="text-black text-sm bold">{`${
+            data.name.trim().length > 30
+              ? data.name.slice(0, 30) + '...'
+              : data.name
+          }`}</Text>
         </View>
-    )
-}
+
+        <View className="px-4">
+          <Text className="text-black text-sm my-2 leading-relaxed">
+            R$ {parseFloat(data.price).toFixed(2)}
+          </Text>
+          <Text className="text-green-600 text-xs ">
+            {`em 10x R$${parseFloat(discount).toFixed(2)} sem juros`}
+          </Text>
+        </View>
+
+        <View className="px-4 mt-3">
+          <Text className="text-green-600 text-xs ">Frete Gratis</Text>
+        </View>
+        {/*<TouchableOpacity
+            onPress={() => dispatch(addToCart(data))}
+            className="bg-purple-700 p-3 w-32 h-12  items-center justify-center  rounded-md  ">
+            <Text>Adicionar ao carrinho</Text>
+  </TouchableOpacity>*/}
+      </View>
+    </TouchableOpacity>
+  );
+};
