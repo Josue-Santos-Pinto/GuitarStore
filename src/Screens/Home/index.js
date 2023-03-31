@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -20,10 +21,53 @@ export default () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [item, setItem] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('');
   const cart = useSelector(state => state.cart);
   const badget = useSelector(state => state.cart.length);
   const length = item.length;
+
+  const ref = database().ref('products');
+
+  console.log(filter);
+  const filterNames = [
+    {name: 'Todos', cat: ''},
+    {name: 'Guitarras', cat: 'guitarra'},
+    {name: 'Violões', cat: 'violao'},
+    {name: 'Baixos', cat: 'baixo'},
+    {name: 'Cordas', cat: 'corda'},
+    {name: 'Amplificadores', cat: 'amplificador'},
+  ];
+
+  if (filter == '') {
+    var categoriaQuery = ref.orderByChild('cat').startAt('');
+  } else {
+    var categoriaQuery = ref.orderByChild('cat').equalTo(filter);
+  }
+
+  const changeFilter = filterName => {
+    setIsLoading(true);
+    setItem([]);
+    setFilter(filterName);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    setItem([]);
+    categoriaQuery.on('value', snapshot => {
+      const produtosObj = snapshot.val();
+      const produtosArr = [];
+
+      Object.keys(produtosObj).forEach(key => {
+        const produto = produtosObj[key];
+        produtosArr.push(produto);
+      });
+
+      console.log(produtosArr);
+      setItem(produtosArr);
+      setIsLoading(false);
+    });
+  }, [filter]);
 
   const dispatch = useDispatch();
 
@@ -57,28 +101,34 @@ export default () => {
     });
   }, [cart]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    database()
-      .ref('/products')
-      .on('value', snapshot => {
-        setItem(snapshot.val());
-        setIsLoading(false);
-      });
-  }, []);
-
   return (
-    <View className="flex-1 bg-slate-800 ">
+    <View className="flex-1 bg-slate-400 ">
       {item.length > 0 && !isLoading ? (
-        <FlatList
-          data={item}
-          renderItem={({item, index}) => (
-            <ListItem data={item} isLast={index === length - 1} />
-          )}
-          keyExtractor={item => item.id}
-          numColumns={2}
-          showsVerticalScrollIndicator={false}
-        />
+        <>
+          <View className="w-full h-20 justify-center items-center ">
+            <View className="w-full h-14 bg-black flex-row rounded-md items-center">
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {filterNames.map((item, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    className="p-2"
+                    onPress={() => setFilter(item.cat)}>
+                    <Text className="text-white">{item.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+          </View>
+          <FlatList
+            data={item}
+            renderItem={({item, index}) => (
+              <ListItem data={item} isLast={index === length - 1} />
+            )}
+            keyExtractor={item => item.id}
+            numColumns={2}
+            showsVerticalScrollIndicator={false}
+          />
+        </>
       ) : (
         <View className="flex-1 justify-center items-center">
           <ActivityIndicator size="large" color="#fff" />

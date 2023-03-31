@@ -15,16 +15,10 @@ export default ({data, isLast}) => {
   const fav = useSelector(state => state.fav);
   const discount = data.price / 10;
 
-  console.log(isLast);
-
   useEffect(() => {
     if (favorite == true) {
       dispatch(addToFav(data));
     }
-  }, [favorite]);
-
-  useEffect(() => {
-    console.log(fav);
   }, [favorite]);
 
   return (
@@ -36,11 +30,11 @@ export default ({data, isLast}) => {
           ? 'w-1/2 bg-slate-100  border-2 border-gray-300'
           : ' flex-1 bg-slate-100  border-2 border-gray-300'
       } `}>
-      <View className=" h-56 items-center justify-center">
+      <View className=" h-56 items-center justify-center bg-white">
         <Image
           className="w-full h-full"
           source={{uri: data.img}}
-          resizeMode="cover"
+          resizeMode="contain"
         />
       </View>
       <TouchableOpacity
@@ -72,11 +66,6 @@ export default ({data, isLast}) => {
         <View className="px-4 mt-3">
           <Text className="text-green-600 text-xs ">Frete Gratis</Text>
         </View>
-        {/*<TouchableOpacity
-            onPress={() => dispatch(addToCart(data))}
-            className="bg-purple-700 p-3 w-32 h-12  items-center justify-center  rounded-md  ">
-            <Text>Adicionar ao carrinho</Text>
-  </TouchableOpacity>*/}
       </View>
     </TouchableOpacity>
   );
