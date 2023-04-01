@@ -111,9 +111,16 @@ export default () => {
                 {filterNames.map((item, index) => (
                   <TouchableOpacity
                     key={index}
-                    className="p-2"
+                    className={`p-2 mx-2 ${
+                      item.cat == filter ? 'bg-white rounded' : ''
+                    }`}
                     onPress={() => setFilter(item.cat)}>
-                    <Text className="text-white">{item.name}</Text>
+                    <Text
+                      className={`${
+                        item.cat == filter ? 'text-black' : 'text-white'
+                      }`}>
+                      {item.name}
+                    </Text>
                   </TouchableOpacity>
                 ))}
               </ScrollView>
