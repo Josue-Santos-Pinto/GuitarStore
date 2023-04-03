@@ -4,10 +4,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToCart} from '../../redux/reducers/cartReducer';
 import {addToFav} from '../../redux/reducers/favReducer';
+import {useNavigation} from '@react-navigation/native';
 
 export default ({data, isLast}) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  const navigation = useNavigation();
 
   const [favorite, setFavorite] = useState(false);
 
@@ -23,6 +25,7 @@ export default ({data, isLast}) => {
 
   return (
     <TouchableOpacity
+      onPress={() => navigation.navigate('Product', data)}
       activeOpacity={1}
       isLast
       className={` ${
