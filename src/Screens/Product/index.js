@@ -5,6 +5,7 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToFav} from '../../redux/reducers/favReducer';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {addToCart} from '../../redux/reducers/cartReducer';
 
 export default () => {
   const navigation = useNavigation();
@@ -61,7 +62,9 @@ export default () => {
       </View>
 
       <View className="w-full items-center my-4 absolute bottom-0">
-        <TouchableOpacity className="w-3/4 items-center flex-row bg-slate-800 rounded p-2 ">
+        <TouchableOpacity
+          onPress={() => dispatch(addToCart(data))}
+          className="w-3/4 items-center flex-row bg-slate-800 rounded p-2 ">
           <FontAwesome name="shopping-cart" size={25} color="#fff" />
           <Text className="text-xl p-4 text-white">Adicionar ao carrinho</Text>
         </TouchableOpacity>

@@ -63,7 +63,6 @@ export default () => {
         produtosArr.push(produto);
       });
 
-      console.log(produtosArr);
       setItem(produtosArr);
       setIsLoading(false);
     });
