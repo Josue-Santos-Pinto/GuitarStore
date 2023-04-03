@@ -25,8 +25,8 @@ export default () => {
   const [password, setPassword] = useState('');
 
   const handleSignIn = () => {
-    setIsLoading(true);
-    if (emailLogin.trim().length > 6 && password.trim().length > 5) {
+    if (emailLogin.trim() != '' && password.trim() != '') {
+      setIsLoading(true);
       auth()
         .signInWithEmailAndPassword(emailLogin, password)
         .then(() => {
@@ -37,6 +37,8 @@ export default () => {
           alert(error);
         })
         .finally(() => setIsLoading(false));
+    } else {
+      alert('Preencha os campos');
     }
   };
 
