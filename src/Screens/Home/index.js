@@ -28,7 +28,6 @@ export default () => {
 
   const ref = database().ref('products');
 
-  console.log(filter);
   const filterNames = [
     {name: 'Todos', cat: ''},
     {name: 'Guitarras', cat: 'guitarra'},

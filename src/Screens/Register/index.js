@@ -31,7 +31,7 @@ export default () => {
         .then(() => {
           navigation.reset({index: 1, routes: [{name: 'Login'}]});
         })
-        .catch(error => console.log(error))
+        .catch(error => alert(error))
         .finally(() => setIsLoading(false));
     } else {
       alert('Preencha todos os Campos');

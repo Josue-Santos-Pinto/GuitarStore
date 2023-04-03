@@ -16,8 +16,6 @@ export default () => {
 
   let desc = fav.desc;
 
-  console.log(fav);
-
   return (
     <>
       {fav.length > 0 && (
