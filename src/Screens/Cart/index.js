@@ -28,7 +28,7 @@ export default () => {
 
       {cart.length > 0 && (
         <View className="flex-1 bg-slate-800">
-          <ScrollView>
+          <ScrollView className="mb-36">
             {cart.map((item, index) => (
               <View
                 className="w-full h-60 my-4 flex-row min-h-min bg-white"
@@ -80,22 +80,22 @@ export default () => {
                 </View>
               </View>
             ))}
-
-            <View className="justify-between flex-row p-4">
-              <Text className="text-white">Valor Total: </Text>
-              <Text className="text-green-400 bold text-xl">
+          </ScrollView>
+          <View className="h-36 w-full  rounded-t-3xl bg-slate-200 absolute bottom-0">
+            <View className=" w-full justify-between items-center flex-row p-4">
+              <Text className="text-black">Valor Total: </Text>
+              <Text className="text-black bold text-xl">
                 R$ {totalPrice.toFixed(2)}
               </Text>
             </View>
-
             <View className="w-full items-center justify-center">
               <TouchableOpacity
                 onPress={null}
                 className="bg-purple-700 w-48 h-12 items-center justify-center  rounded-md my-4">
-                <Text>Comprar</Text>
+                <Text className="text-white">Comprar</Text>
               </TouchableOpacity>
             </View>
-          </ScrollView>
+          </View>
         </View>
       )}
     </>
