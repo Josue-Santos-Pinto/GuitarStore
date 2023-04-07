@@ -6,10 +6,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addToFav} from '../../redux/reducers/favReducer';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {addToCart} from '../../redux/reducers/cartReducer';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default () => {
   const navigation = useNavigation();
   const route = useRoute();
+
+  const badget = useSelector(state => state.cart.length);
 
   const dispatch = useDispatch();
 
@@ -34,8 +37,20 @@ export default () => {
           </TouchableOpacity>
         </View>
       ),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Cart')}
+          className="m-4 w-10 h-10 rounded-full items-center justify-center">
+          <Icon name="shopping-cart" size={24} color="#6e6d75" />
+          <View
+            className="w-4 h-4 rounded-full absolute right-px items-center justify-center "
+            style={{top: -8}}>
+            <Text className="text-black bold">{badget}</Text>
+          </View>
+        </TouchableOpacity>
+      ),
     });
-  }, []);
+  }, [badget]);
 
   return (
     <View className="flex-1 bg-slate-100">
