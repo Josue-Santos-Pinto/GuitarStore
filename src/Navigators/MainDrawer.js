@@ -16,7 +16,11 @@ const Drawer = createDrawerNavigator();
 export default () => {
   return (
     <Drawer.Navigator drawerContent={props => <DrawerCustom {...props} />}>
-      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{headerStyle: {elevation: 0, borderBottomWidth: 0}}}
+      />
       <Drawer.Screen
         name="Cart"
         component={Cart}

@@ -31,7 +31,7 @@ export default ({data, isLast}) => {
       className={` ${
         isLast
           ? 'w-1/2 bg-slate-100  border-2 border-gray-300'
-          : ' flex-1 bg-slate-100  border-2 border-gray-300'
+          : ' w-1/2 bg-slate-100  border-2 border-gray-300'
       } `}>
       <View className=" h-56 items-center justify-center bg-white">
         <Image
