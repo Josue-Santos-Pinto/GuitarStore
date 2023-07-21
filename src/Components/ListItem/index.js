@@ -28,46 +28,32 @@ export default ({data, isLast}) => {
       onPress={() => navigation.navigate('Product', data)}
       activeOpacity={1}
       isLast
-      className={` ${
-        isLast
-          ? 'w-1/2 bg-slate-100  border-2 border-gray-300'
-          : ' w-1/2 bg-slate-100  border-2 border-gray-300'
-      } `}>
-      <View className=" h-56 items-center justify-center bg-white">
+      className="w-1/2 p-5 ">
+      <View className=" h-44 items-center justify-center p-3 bg-gray-100 rounded-md">
         <Image
           className="w-full h-full"
           source={{uri: data.img}}
           resizeMode="contain"
         />
+        <TouchableOpacity
+          activeOpacity={0.6}
+          className=" w-8 h-8 justify-center items-center rounded-full"
+          style={{position: 'absolute', top: 5, right: 10}}
+          onPress={() => setFavorite(!favorite)}>
+          {favorite == false && <Icon name="heart-o" size={20} color="#000" />}
+          {favorite == true && <Icon name="heart" size={20} color="#f83333" />}
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        activeOpacity={0.6}
-        className=" w-8 h-8 justify-center items-center rounded-full  bg-slate-100"
-        style={{position: 'absolute', top: 5, right: 10}}
-        onPress={() => setFavorite(!favorite)}>
-        {favorite == false && <Icon name="heart-o" size={20} color="red" />}
-        {favorite == true && <Icon name="heart" size={20} color="red" />}
-      </TouchableOpacity>
-      <View className="w-60 h-72 ">
-        <View className="w-36 h-12  m-4 overflow-hidden">
-          <Text className="text-black text-sm bold">{`${
+      <View>
+        <View className=" min-h-12  m-4 ">
+          <Text className="text-black text-xs bold">{`${
             data.name.trim().length > 30
               ? data.name.slice(0, 30) + '...'
               : data.name
           }`}</Text>
-        </View>
-
-        <View className="px-4">
           <Text className="text-black text-sm my-2 leading-relaxed">
             R$ {parseFloat(data.price).toFixed(2)}
           </Text>
-          <Text className="text-green-600 text-xs ">
-            {`em 10x R$${parseFloat(discount).toFixed(2)} sem juros`}
-          </Text>
-        </View>
-
-        <View className="px-4 mt-3">
-          <Text className="text-green-600 text-xs ">Frete Gratis</Text>
         </View>
       </View>
     </TouchableOpacity>
